@@ -27,7 +27,25 @@ This project builds a web app that analyzes disaster data to build a model for a
 ## Project Description<a name="desc"></a>
 
 ## File Description<a name="files"></a>
+Here is the file structure of the project.
+```
+|____app
+| |____run.py
+| |____templates
+| | |____master.html
+| | |____go.html
+|____data_preprocess
+| |____categories.csv
+| |____messages.csv
+| |____ETL Pipeline Preparation.ipynb
+| |____DisasterResponse.db
+| |____Disaster_response_data.db
+| |____ML Pipeline Preparation.ipynb
+|____models
+| |____train_classifier.py
+|____README.md
 
+```
 ## Results<a name="results"></a>
 
 ## AcKnowledgements<a name="licensing"></a>
