@@ -1,15 +1,37 @@
 import sys
-
+import numpy as np
+import pandas as pd
+import matplotlib as plt
+from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
-    pass
-
+    """ Function to load datasets
+    Arguments:
+        messages_filepath {string} -- a string of path of file to load
+        categories_filepath {string} -- another string of path of file to load
+    Returns:
+        df{dataframe} -- a dataframe that merged the two files together
+    """
+    # load messages dataset
+    messages = pd.read_csv('messages.csv')
+    categories = pd.read_csv('categories.csv')
+    df = messages.merge(categories, on='id')
+    return df
 
 def clean_data(df):
-    pass
+    """ Function to merge two datasets, split
+    Arguments:
+        df {[type]} -- [description]
+    """
 
 
 def save_data(df, database_filename):
+    """[summary]
+    
+    Arguments:
+        df {[type]} -- [description]
+        database_filename {[type]} -- [description]
+    """
     pass  
 
 
