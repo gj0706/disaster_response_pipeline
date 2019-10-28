@@ -46,13 +46,17 @@ def clean_data(df):
     return df
 
 def save_data(df, database_filename):
-    """[summary]
+    """ Save teh clean dataset into a sqlite database
     
     Arguments:
-        df {[type]} -- [description]
-        database_filename {[type]} -- [description]
+        df {pandas datafram} -- clean dataset
+        database_filename {string} -- output filename (with .db)
+    Returns:
+        Nome
     """
-    pass  
+    engine = create_engine('sqlite:///{}'.format(database_filename))
+    
+    df.to_sql('Disaster_data', engine, index=False)
 
 
 def main():
