@@ -5,8 +5,7 @@ This project builds a web app that analyzes disaster data to build a model for a
 1. [Installation](#installation)
 2. [Project Description](#desc)
 3. [File Description](#files)
-4. [Results](#results)
-5. [Acknowledgements](#licensing)
+4. [Acknowledgements](#licensing)
 
 
 
@@ -49,3 +48,5 @@ Here is the file structure of the project.
 ## Results<a name="results"></a>
 
 ## AcKnowledgements<a name="licensing"></a>
+
+
