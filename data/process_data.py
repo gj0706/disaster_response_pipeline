@@ -19,11 +19,31 @@ def load_data(messages_filepath, categories_filepath):
     return df
 
 def clean_data(df):
-    """ Function to merge two datasets, split
+    """ Function to clean the data
     Arguments:
-        df {[type]} -- [description]
-    """
+        df {pandas dataframe} -- a dataframe to clean
+    Returens: 
+        df {pandas dataframe} -- cleaned df
 
+    """
+    # Split categories into separate category columns.
+    categories = df['categories'].str.split(';',expand=True) # create a dataframe of the 36 individual category columns
+    row = categories.loc[0,:] # select the first row of the categories dataframe
+    category_colnames = row.apply(lambda x : x.split('-')[0]) #extract a list of new column names for categories.
+    categories.columns = category_colnames # rename the columns of `categories`
+
+    # use one hot encoding to convert category values into 0/1
+    for column in categories:
+        categories[column] = categories[column].str[-1] # set each value to be the last character of the string
+        categories[column] = categories[column].astype(int) # convert column from string to numeric
+   
+    # Replace categories column in df with new category columns.
+    df.drop('categories', axis=1, inplace=True)
+    df = pd.concat([df, categories], axis=1)
+
+    # Remove duplicates
+    df.drop_duplicates(inplace = True)
+    return df
 
 def save_data(df, database_filename):
     """[summary]
