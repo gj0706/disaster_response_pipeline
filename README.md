@@ -45,7 +45,6 @@ Here is the file structure of the project.
 |____README.md
 
 ```
-## Results<a name="results"></a>
 
 ## AcKnowledgements<a name="licensing"></a>
 
