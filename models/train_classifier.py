@@ -1,13 +1,42 @@
 import sys
+import pandas as pd
+import numpy as np
+import matplotlib as plt
+from sqlalchemy import create_engine
+import re
+import nltk
+nltk.download(['punkt','stopwords','wordnet', 'averaged_perceptron_tagger'])
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
 
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
+from sklearn.model_selection import GridSearchCV
+from sklearn.multioutput import MultiOutputClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline, FeatureUnion
+from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+import pickle
 
 def load_data(database_filepath):
-    pass
+    """[summary]
+    
+    Arguments:
+        database_filepath {[type]} -- [description]
+    Returns:
 
+    """
+    engine = create_engine('sqlite:///' + database_filepath)
+    df = pd.read_sql('SELECT * FROM Disaster_data', engine)
+    X = df['message']    
+    y = df.iloc[:,4:]
+    return X, y
 
 def tokenize(text):
-    pass
-
+   
 
 def build_model():
     pass
