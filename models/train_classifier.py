@@ -56,15 +56,39 @@ def tokenize(text):
 
 
 def build_model():
-    pass
+    """[summary]
+    """
+    pipeline = Pipeline([
+                ('vect', CountVectorizer(tokenizer=tokenize)),
+                ('tfidf', TfidfTransformer()),
+                ('clf', MultiOutputClassifier(RandomForestClassifier(n_estimators=100))),
+                ])
+    parameters = {
+                'clf__estimator__min_samples_split': (5, 10),  
+                'clf__estimator__n_estimators': [20, 40]
+             }
+    cv = GridSearchCV(pipeline, parameters, cv=5)
+    return cv
 
 
-def evaluate_model(model, X_test, Y_test, category_names):
-    pass
+def evaluate_model(model, X_test, y_test, category_names):
+    """[summary]
+    
+    Arguments:
+        model {[type]} -- [description]
+        X_test {[type]} -- [description]
+        y_test {[type]} -- [description]
+        category_names {[type]} -- [description]
+    """
+    y_pred = model.predict(X_test)
+    for i, col in enumerate(y_test):
+        print(col)
+        print(classification_report(y_test[col], y_pred[:, i]))
 
 
 def save_model(model, model_filepath):
-    pass
+    with open('model_filepath.pkl', 'wb') as file:
+        pickle.dump(model, file)
 
 
 def main():
