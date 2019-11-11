@@ -37,13 +37,12 @@ Here is the file structure of the project.
 | |____categories.csv
 | |____messages.csv
 | |____ETL Pipeline Preparation.ipynb
-| |____DisasterResponse.db
 | |____Disaster_response_data.db
 | |____ML Pipeline Preparation.ipynb
 |____models
+| |____model.pkl
 | |____train_classifier.py
 |____README.md
-
 ```
 
 ## AcKnowledgements<a name="licensing"></a>
