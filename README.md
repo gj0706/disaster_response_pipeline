@@ -37,8 +37,12 @@ Here is the file structure of the project.
 | |____categories.csv
 | |____messages.csv
 | |____ETL Pipeline Preparation.ipynb
-| |____Disaster_response_data.db
 | |____ML Pipeline Preparation.ipynb
+|____data
+| |____Disaster_response_data.db
+| |____disaster_messages.csv
+| |____process_data.py
+| |____disaster_categories.csv
 |____models
 | |____model.pkl
 | |____train_classifier.py
