@@ -14,9 +14,9 @@ This project builds a web app that analyzes disaster data to build a model for a
 - Run the following commands in the project's root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database
-        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
+        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/Disaster_response_data.db`
     - To run ML pipeline that trains classifier and saves
-        `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
+        `python models/train_classifier.py data/Disaster_esponse_data.db models/model.pkl`
 
 - Run the following command in the app's directory to run your web app.
     `python run.py`
