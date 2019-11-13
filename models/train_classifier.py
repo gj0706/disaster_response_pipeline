@@ -33,16 +33,16 @@ def load_data(database_filepath):
     df = pd.read_sql('SELECT * FROM Disaster_data', engine)
     X = df['message']    
     y = df.iloc[:,4:]
-    return X, y
+    category_names = y.columns
+    return X, y, category_names
 
 def tokenize(text):
-    """[summary]
-    
+    """
     Arguments:
-        text {[type]} -- [description]
+        text {string} --  a string of text for tokenization
     
     Returns:
-        [type] -- [description]
+        [list of strings] -- a list of words
     """
     # Normalize
     text = re.sub(r'[^a-zA-Z0-9]', ' ', text.lower())
@@ -72,13 +72,13 @@ def build_model():
 
 
 def evaluate_model(model, X_test, y_test, category_names):
-    """[summary]
+    """ Function to evaluate trained model
     
     Arguments:
-        model {[type]} -- [description]
-        X_test {[type]} -- [description]
-        y_test {[type]} -- [description]
-        category_names {[type]} -- [description]
+        model {ml model} -- trained model
+        X_test {np array} -- test for training
+        y_test {np array} -- test target 
+        category_names {string} -- column names for printing
     """
     y_pred = model.predict(X_test)
     for i, col in enumerate(y_test):
@@ -92,6 +92,8 @@ def save_model(model, model_filepath):
 
 
 def main():
+    """[summary]
+    """
     if len(sys.argv) == 3:
         database_filepath, model_filepath = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))
@@ -116,7 +118,7 @@ def main():
         print('Please provide the filepath of the disaster messages database '\
               'as the first argument and the filepath of the pickle file to '\
               'save the model to as the second argument. \n\nExample: python '\
-              'train_classifier.py ../data/DisasterResponse.db classifier.pkl')
+              'train_classifier.py ../data_preprocess/Disaster_response_data.db model.pkl')
 
 
 if __name__ == '__main__':
