@@ -5,7 +5,7 @@ import pandas as pd
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 
-from flask import Flask
+from flask import Flask, Response
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
 from sklearn.externals import joblib
@@ -28,13 +28,22 @@ def tokenize(text):
 # load data
 engine = create_engine('sqlite:///../data/Disaster_response_data.db')
 df = pd.read_sql_table('Disaster_data', engine)
-
+# print(df)
+# data = df.to_json(orient='records')
+# print(data)
 # load model
 model = joblib.load("../models/model.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
+
+@app.route('/getMyJson')
+def get_json():
+    json = df.to_json(orient='records')
+    response = Response(response=json, status=200, mimetype="application/json")
+    return(response)
+
 @app.route('/index')
 def index():
     
@@ -71,7 +80,7 @@ def index():
     graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
     
     # render web page with plotly graphs
-    return render_template('master.html', ids=ids, graphJSON=graphJSON)
+    return render_template('master.html', data_set=data, ids=ids, graphJSON=graphJSON)
 
 
 # web page that handles user query and displays model results
