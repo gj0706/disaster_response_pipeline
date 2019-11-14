@@ -1,5 +1,5 @@
 # Disaster response pipeline project
-This project builds a web app that analyzes disaster data to build a model for an API that classifies disaster messages.
+This project builds a web app that analyzes disaster data to build a model for an API that classifies disaster messages. This project was created by Udacity in partnership with Figure Eight, and uses real message data from real situations.
 
 ### Table of Contents
 1. [Installation](#installation)
