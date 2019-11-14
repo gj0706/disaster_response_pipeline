@@ -31,6 +31,11 @@ df = pd.read_sql_table('Disaster_data', engine)
 # print(df)
 # data = df.to_json(orient='records')
 # print(data)
+
+# chart_data = df.to_dict(orient='records')
+# chart_data = json.dumps(chart_data, indent=2)
+# data = {'chart_data': chart_data}
+
 # load model
 model = joblib.load("../models/model.pkl")
 
@@ -38,14 +43,10 @@ model = joblib.load("../models/model.pkl")
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
 
-@app.route('/getMyJson')
-def get_json():
-    json = df.to_json(orient='records')
-    response = Response(response=json, status=200, mimetype="application/json")
-    return(response)
-
 @app.route('/index')
 def index():
+
+    # print(data)
     
     # extract data needed for visuals
     # TODO: Below is an example - modify to extract data for your own visuals
@@ -80,7 +81,13 @@ def index():
     graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
     
     # render web page with plotly graphs
-    return render_template('master.html', data_set=data, ids=ids, graphJSON=graphJSON)
+    return render_template('master.html', data=df, ids=ids, graphJSON=graphJSON)
+
+# @app.route('/get_json')
+# def get_json():
+#     json = df.to_json(orient='records')
+#     response = Response(response=json, status=200, mimetype="application/json")
+#     return(response)
 
 
 # web page that handles user query and displays model results
