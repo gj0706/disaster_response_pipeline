@@ -8,7 +8,7 @@ from nltk.tokenize import word_tokenize
 from flask import Flask, Response
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
-from sklearn.externals import joblib
+import joblib
 from sqlalchemy import create_engine
 
 
@@ -49,12 +49,14 @@ def index():
     # print(data)
     
     # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
-    
+
+    classes = (df[df.columns[4:]]==1).sum().reset_index().rename(columns={'index': 'class', 0: 'count'})['class']
+    class_counts = (df[df.columns[4:]]==1).sum().reset_index().rename(columns={'index': 'class', 0: 'count'})['count']
+
+
     # create visuals
-    # TODO: Below is an example - modify to create your own visuals
     graphs = [
         {
             'data': [
@@ -73,6 +75,24 @@ def index():
                     'title': "Genre"
                 }
             }
+        },
+        {
+            'data': [
+                Bar(
+                    x=classes,
+                    y=class_counts
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of classified messages',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "classes"
+                }
+            }
         }
     ]
     
@@ -81,7 +101,7 @@ def index():
     graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
     
     # render web page with plotly graphs
-    return render_template('master.html', data=df, ids=ids, graphJSON=graphJSON)
+    return render_template('master.html', data_set=df, ids=ids, graphJSON=graphJSON)
 
 # @app.route('/get_json')
 # def get_json():
