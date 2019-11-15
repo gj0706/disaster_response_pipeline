@@ -1,14 +1,20 @@
 # Disaster response pipeline project
-This project builds a web app that analyzes disaster data to build a model for an API that classifies disaster messages. This project was created by Udacity in partnership with Figure Eight, and uses real message data from real situations.
+This project is a web app that analyzes disaster data by building a machine learning model that classifies disaster messages. The goal is to direct each message to the relief agency that can provide the quickest assistance. This project was created by Udacity in partnership with Figure Eight, and uses real message data from real situations. 
 
 ### Table of Contents
-1. [Installation](#installation)
-2. [Project Description](#desc)
+1. [Project Description](#desc)
+2. [Installation](#installation)
 3. [File Description](#files)
 4. [Acknowledgements](#licensing)
 
 
+## Project Description<a name="desc"></a>
+There are three components completed for the project:
+- ETL Pipeline: loads and cleans the data, then stores it in a SQLite database
 
+- ML Pipeline: loads the data from SQLite database, builds a text processing and machine learning pipeline, trains and tunes the model using GridSearchCV, outputs the results on the text set and exports the final model as a pickle file.
+
+- Flask Web App : uses Pandas to wrangle data on the Flask backend, uses jinjia2 template engine to create HTML templates, uses Plotly for visualization. 
 
 ## Installation <a name="installation"></a>
 
@@ -32,7 +38,7 @@ This project builds a web app that analyzes disaster data to build a model for a
 
 - Open your web browser and enter http://0.0.0.0:3001/, you will see the web page. 
 
-## Project Description<a name="desc"></a>
+
 
 ## File Description<a name="files"></a>
 Here is the file structure of the project.
