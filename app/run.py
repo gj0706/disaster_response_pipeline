@@ -8,7 +8,7 @@ from nltk.tokenize import word_tokenize
 from flask import Flask, Response
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
-import joblib
+from sklearn.externals import joblib
 from sqlalchemy import create_engine
 
 
@@ -53,7 +53,7 @@ def index():
     genre_names = list(genre_counts.index)
 
     classes = (df[df.columns[4:]]==1).sum().reset_index().rename(columns={'index': 'class', 0: 'count'})['class']
-    class_counts = (df[df.columns[4:]]==1).sum().reset_index().rename(columns={'index': 'class', 0: 'count'})['count']
+    class_counts = (df[df.columns[4:]]==1).sum().reset_index().rename(columns={'index': 'class', 0: 'count'})['count'].sort_values(ascending=False)
 
 
     # create visuals
@@ -101,7 +101,7 @@ def index():
     graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
     
     # render web page with plotly graphs
-    return render_template('master.html', data_set=df, ids=ids, graphJSON=graphJSON)
+    return render_template('master.html',  ids=ids, graphJSON=graphJSON)
 
 # @app.route('/get_json')
 # def get_json():
