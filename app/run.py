@@ -8,6 +8,11 @@ from nltk.tokenize import word_tokenize
 from flask import Flask, Response
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
+from plotly.graph_objs import Scatter
+
+import plotly.graph_objs as go
+from plotly.offline import plot
+import random
 from sklearn.externals import joblib
 from sqlalchemy import create_engine
 
@@ -53,9 +58,12 @@ def index():
     genre_names = list(genre_counts.index)
 
     classes = (df[df.columns[4:]]==1).sum().reset_index().rename(columns={'index': 'class', 0: 'count'})['class']
-    class_counts = (df[df.columns[4:]]==1).sum().reset_index().rename(columns={'index': 'class', 0: 'count'})['count'].sort_values(ascending=False)
+    class_df = (df[df.columns[4:]]==1).sum().reset_index().rename(columns={'index': 'class', 0: 'count'})
+    class_counts = class_df['count'].sort_values(ascending=False)
 
-
+    words = classes
+    word_freq = 50 *((class_counts - class_counts.min() )/ (class_counts.max() - class_counts.min())) + 20
+    colors = [plotly.colors.DEFAULT_PLOTLY_COLORS[random.randrange(1, 10)] for i in range(36)]
     # create visuals
     graphs = [
         {
@@ -91,6 +99,29 @@ def index():
                 },
                 'xaxis': {
                     'title': "classes"
+                }
+            }
+        },
+        {
+            'data': [
+                Scatter(
+                    x=[random.random() for i in range(30)],
+                    y=[random.random() for i in range(30)],
+                    mode='text',
+                    text=words,
+                    marker={'opacity': 0.3},
+                    textfont={'size': word_freq ,
+                            'color': colors}
+                    )
+            ],
+
+            'layout': {
+                'title': 'Word frequency of classified messages',
+                'yaxis': {
+                    'showgrid': False, 'showticklabels': False, 'zeroline': False
+                },
+                'xaxis': {
+                    'showgrid': False, 'showticklabels': False, 'zeroline': False
                 }
             }
         }
