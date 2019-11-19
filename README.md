@@ -10,6 +10,7 @@ This project is a web app that analyzes disaster data by building a machine lear
 
 ## Project Description<a name="desc"></a>
 There are three components completed for the project:
+
 - ETL Pipeline: loads and cleans the data, then stores it in a SQLite database.
 
 - ML Pipeline: loads the data from SQLite database, builds a text processing and machine learning pipeline, trains and tunes the model using GridSearchCV, outputs the results on the text set and exports the final model as a pickle file.
@@ -36,7 +37,13 @@ There are three components completed for the project:
 
     `python run.py`
 
-- Open your web browser and enter http://0.0.0.0:3001/, you will see the web page. 
+- Open your web browser and enter http://0.0.0.0:3001/, you will see the main page shown below:
+
+![Main page](https://github.com/gj0706/disaster_response_pipeline/blob/master/app/static/img/main.png)
+
+- Enter disaster message and click 'Classify message' to see the classification result. An example screen shot is like below: 
+
+![classification](https://github.com/gj0706/disaster_response_pipeline/blob/master/app/static/img/classification.png)
 
 
 
@@ -49,17 +56,17 @@ Here is the file structure of the project.
 | | |____master.html # home page of the web app
 | | |____go.html # page that displays classification results
 |____data_preprocess 
-| |____categories.csv
-| |____messages.csv
+| |____categories.csv # raw category data
+| |____messages.csv # raw message data
 | |____ETL Pipeline Preparation.ipynb # ETL pipeline notebook 
 | |____ML Pipeline Preparation.ipynb # ML pipeline notebook
 |____data
-| |____Disaster_response_data.db # database created by excuting ETL pipeline
+| |____Disaster_response_data.db # database created by running ETL pipeline
 | |____disaster_messages.csv
 | |____process_data.py # refractored ETL pipeline
 | |____disaster_categories.csv
 |____models
-| |____model.pkl # model saved by excuting ML pipeline
+| |____model.pkl # model saved by running ML pipeline
 | |____train_classifier.py # refractored ML pipeline
 |____README.md
 ```
