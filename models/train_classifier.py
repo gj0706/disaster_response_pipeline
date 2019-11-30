@@ -22,12 +22,14 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 import pickle
 
 def load_data(database_filepath):
-    """[summary]
+    """ Function that loads the data and define train and target data
     
     Arguments:
-        database_filepath {[type]} -- [description]
+        database_filepath {string} -- file path
     Returns:
-
+        X {pandas dataframe} -- training data
+        y {pandas series} -- prediction target
+        category_names -- classification labels
     """
     engine = create_engine('sqlite:///' + database_filepath)
     df = pd.read_sql('SELECT * FROM Disaster_data', engine)
@@ -37,12 +39,13 @@ def load_data(database_filepath):
     return X, y, category_names
 
 def tokenize(text):
-    """
+     """ A function that cleans and splits a sentence into words
+    
     Arguments:
-        text {string} --  a string of text for tokenization
+        text {string} -- a string of sentence 
     
     Returns:
-        [list of strings] -- a list of words
+        list of strings -- a list of words
     """
     # Normalize
     text = re.sub(r'[^a-zA-Z0-9]', ' ', text.lower())
@@ -56,7 +59,7 @@ def tokenize(text):
 
 
 def build_model():
-    """[summary]
+    """ Function that build the model
     """
     pipeline = Pipeline([
                 ('vect', CountVectorizer(tokenizer=tokenize)),
@@ -87,13 +90,17 @@ def evaluate_model(model, X_test, y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    """ Funciton to save the model to file 
+    
+    Arguments:
+        model {a machinel earning object} -- model to save
+        model_filepath {string} -- file path to save
+    """
     with open('model_filepath.pkl', 'wb') as file:
         pickle.dump(model, file)
 
 
 def main():
-    """[summary]
-    """
     if len(sys.argv) == 3:
         database_filepath, model_filepath = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))
