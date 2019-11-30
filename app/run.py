@@ -20,6 +20,14 @@ from sqlalchemy import create_engine
 app = Flask(__name__)
 
 def tokenize(text):
+    """ A function that cleans and splits a sentence into words
+    
+    Arguments:
+        text {string} -- a string of sentence 
+    
+    Returns:
+        list of strings -- a list of words
+    """
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
@@ -63,7 +71,7 @@ def index():
 
     words = classes
     word_freq = 50 *((class_counts - class_counts.min() )/ (class_counts.max() - class_counts.min())) + 20
-    colors = [plotly.colors.DEFAULT_PLOTLY_COLORS[random.randrange(1, 10)] for i in range(36)]
+    colors = [plotly.colors.DEFAULT_PLOTLY_COLORS[random.randrange(1, 10)] for i in range(30)]
     # create visuals
     graphs = [
         {
